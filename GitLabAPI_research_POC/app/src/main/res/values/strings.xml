@@ -1,0 +1,15 @@
+<resources>
+
+    <string name="app_name">Kotlin : Recherche Doc. Technos</string>
+
+    <string name="sans_serif">sans-serif</string>
+    <string name="sans_serif_light">sans-serif-light</string>
+    <string name="sans_serif_black">sans-serif-black</string>
+    <string name="sans_serif_medium">sans-serif-medium</string>
+
+    <string name="error">Error</string>
+
+    <string name="search_repositories">Recherche Globale</string>
+    <string name="search_repositories_error">Erreurs - Champ de recherche désactivé.</string>
+
+</resources>

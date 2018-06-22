@@ -10,12 +10,21 @@ import rx.Observable
 
 interface GitHubApiService {
 
+    /*
+        API repositories.
+     */
     @GET("search/repositories")
     fun searchRepositories(@Query("q") query: String): Observable<RepositorySearchResults>
 
+    /*
+        Chargement du repo.
+     */
     @GET("/repos/{owner}/{repo}")
     fun getRepository(@Path("owner") owner: String, @Path("repo") repository: String): Observable<Repository>
 
+    /*
+        Chargement du readme du repo.
+     */
     @GET("/repos/{owner}/{repo}/readme")
     fun getRepositoryReadme(@Path("owner") owner: String, @Path("repo") repository: String): Observable<RepositoryReadme>
 

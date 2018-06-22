@@ -36,9 +36,12 @@ class MainActivity : BaseActivity() {
         mainResultsRecycler.layoutManager = LinearLayoutManager(this)
     }
 
+    /*
+        Fonction d'appel des services API GitHub
+     */
     fun setUpSearchView() {
         val searchEditText = mainSearchCardView.getEditText()
-        searchEditText.setText("kotlin")
+        searchEditText.setText("Kotlin")
         searchEditText.setSelection(searchEditText.getText().length);
         searchEditText.setHint(R.string.search_repositories)
         RxTextView.textChanges(searchEditText)
@@ -51,7 +54,7 @@ class MainActivity : BaseActivity() {
                         repositoryAdapter.loadRepositories(it)
                     }
                     onError {
-                        Timber.e(it, "Failed to load repositories")
+                        Timber.e(it, "Impossible de charger les repos GIT")
                         mainResultsSpinner.hide()
                         alert {
                             setTitle(R.string.error)

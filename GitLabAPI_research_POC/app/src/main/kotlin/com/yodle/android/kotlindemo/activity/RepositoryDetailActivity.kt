@@ -27,8 +27,12 @@ class RepositoryDetailActivity : BaseActivity() {
         }
     }
 
+    // Injection service GitHub
     @Inject lateinit var gitHubService: GitHubService
 
+    /*
+        Instanciations lors du déclenchement de la recherche.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_repository_detail)
@@ -46,6 +50,9 @@ class RepositoryDetailActivity : BaseActivity() {
         repositoryDetailWebView.setProgressChangedListener { progress -> repositoryDetailProgressBar.showIf(progress < 100) }
     }
 
+    /*
+        Fonction de chargement des détails repositories : Readme.
+     */
     fun loadRepositoryDetails(owner: String, repository: String) {
         gitHubService.getRepositoryReadme(owner, repository)
                 .doOnSubscribe { repositoryDetailProgressBar.show() }
@@ -55,24 +62,31 @@ class RepositoryDetailActivity : BaseActivity() {
                         repositoryDetailWebView.loadUrl(it.html_url)
                     }
                     onError {
-                        Timber.e(it, "Failed to load repository readme")
+                        Timber.e(it, "Impossible de charger le ReadMe du repo.")
                         repositoryDetailProgressBar.hide()
                     }
                 }
     }
 
+    /*
+        Fonction  de chargement des détails repositories : Image.
+     */
     fun loadRepositoryImage(imageUrl: String) {
         repositoryDetailImage.loadUrl(imageUrl) {
             onSuccess {
                 setToolbarColorFromImage()
             }
             onError {
-                Timber.e("Failed to load image")
+                Timber.e("Impossible de charger l'image.")
                 toolbarLayout.visibility = View.VISIBLE
             }
         }
     }
 
+    /*
+        Extrapolation couleur de la toolbar à partir de l'image (cosmétique)
+        TODO : RGB based mirroring
+     */
     fun setToolbarColorFromImage() {
         repositoryDetailImage.generatePalette gen@ {
             val swatch = it.mutedSwatch ?: it.vibrantSwatch ?: it.lightMutedSwatch ?: it.lightVibrantSwatch ?: return@gen

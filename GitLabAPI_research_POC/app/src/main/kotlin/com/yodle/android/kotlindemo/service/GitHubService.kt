@@ -14,6 +14,9 @@ open class GitHubService {
         MainApp.graph.inject(this)
     }
 
+    /*
+        Service : Dispatch methodes appel d'APIs.
+     */
     open fun searchRepositories(query: String): Observable<List<Repository>> {
         if (query.isBlank()) {
             return Observable.just(ArrayList())
